@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ecommerce Express</title>
+</head>
+<body>
+  <h1>Products</h1>
+  <div id="products"></div>
+
+  <script>
+    // Fetch products from backend and display them
+    fetch('http://localhost:5000/products')
+      .then(res => res.json())
+      .then(products => {
+        const container = document.getElementById('products');
+        products.forEach(product => {
+          const div = document.createElement('div');
+          div.innerHTML = `
+            <h3>${product.name}</h3>
+            <img src="${product.photo}" alt="${product.name}" width="150"/>
+            <p>Price: $${product.price}</p>
+            <button onclick="buyProduct('${product._id}')">Buy Product</button>
+            <hr/>
+          `;
+          container.appendChild(div);
+        });
+      });
+
+    function buyProduct(id) {
+      fetch(`http://localhost:5000/products/buy/${id}`, { method: 'POST' })
+        .then(res => res.json())
+        .then(data => alert(data.message || 'Purchased!'))
+        .catch(() => alert('Error purchasing product'));
+    }
+  </script>
+</body>
+</html>
