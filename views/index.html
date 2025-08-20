@@ -8,7 +8,6 @@
   <div id="products"></div>
 
   <script>
-    // Fetch products from backend and display them
     fetch('http://localhost:5000/products')
       .then(res => res.json())
       .then(products => {
