@@ -1,5 +1,4 @@
 const Product = require('../models/Product'); 
-
 async function buyProduct(productId, userId) {
 
   const product = await Product.findById(productId);
